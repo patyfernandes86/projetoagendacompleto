@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerenciador de Contatos</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    input[type="text"], input[type="tel"] {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #3498db;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+    }
+    .contact-list {
+        list-style: none;
+        padding: 0;
+    }
+    .contact-item {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Gerenciador de Contatos</h2>
+    <form id="contact-form">
+        <input type="text" id="name" placeholder="Nome" required>
+        <input type="tel" id="phone" placeholder="Telefone" required>
+        <input type="email" id="email" placeholder="E-mail">
+        <input type="submit" value="Adicionar Contato">
+    </form>
+    <h3>Lista de Contatos</h3>
+    <ul id="contact-list" class="contact-list"></ul>
+</div>
+
+<script>
+    const contactForm = document.getElementById('contact-form');
+    const contactList = document.getElementById('contact-list');
+
+    // Adicionar novo contato
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+
+        const contactItem = document.createElement('li');
+        contactItem.classList.add('contact-item');
+        contactItem.innerHTML = `<strong>${name}</strong>: ${phone}`;
+        if (email) {
+            contactItem.innerHTML += ` - ${email}`;
+        }
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Excluir';
+        deleteButton.addEventListener('click', function() {
+            contactItem.remove();
+        });
+
+        contactItem.appendChild(deleteButton);
+        contactList.appendChild(contactItem);
+
+        contactForm.reset();
+    });
+</script>
+
+</body>
+</html>
